@@ -5,7 +5,7 @@ import os
 
 client = Client("mukaist/Midjourney")
 
-# Função para enviar a mensagem ao modelo Gradio
+
 def generate_image(user_prompt):
     result = client.predict(
         prompt=user_prompt,
