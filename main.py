@@ -1,7 +1,7 @@
 import streamlit as st
 from gradio_client import Client
 import time
-import pyperclip  # Biblioteca para copiar para a área de transferência
+import pyperclip  
 
 client = Client("chuanli11/Chat-Llama-3.2-3B-Instruct-uncensored")
 
@@ -55,13 +55,13 @@ if not st.session_state.is_loading:
             st.session_state.word = word
 
 if st.session_state.word:
-    st.session_state.is_loading = True  # Definir que está processando
-    input_placeholder.empty()  # Esconder o campo de input enquanto processa
+    st.session_state.is_loading = True  
+    input_placeholder.empty()  
 
     with st.spinner("Processando sua consulta..."):
         response = get_model_response(st.session_state.word)
-        time.sleep(1)  # Apenas para garantir que o spinner seja exibido por um tempo
-    st.session_state.is_loading = False  # Processamento concluído
+        time.sleep(1) 
+    st.session_state.is_loading = False  
 
     st.write(f"{response}")
 
