@@ -1,18 +1,16 @@
 import streamlit as st
 from gradio_client import Client
 import time
-import pyperclip  
+import pyperclip
 
-client = Client("chuanli11/Chat-Llama-3.2-3B-Instruct-uncensored")
+client = Client("huggingface-projects/llama-3.2-vision-11B")
 
 def get_model_response(word):
     user_message = f"Por favor, forneça a definição, sinônimos e um exemplo de uso da palavra: {word}"
 
     result = client.predict(
-        message=user_message,
-        system_prompt="Você é um dicionário completo. Forneça definição, sinônimos e um exemplo de uso para a palavra solicitada.",
-        max_new_tokens=1024,
-        temperature=0.6,
+        message={"text": user_message, "files": []},
+        max_new_tokens=250,
         api_name="/chat"
     )
 
@@ -30,7 +28,7 @@ hide_header_style = """
     window.addEventListener('load', function() {
         var header = document.querySelector('header');
         if (header) {
-            header.style.display = 'none';  // Esconde o cabeçalho assim que a página carrega
+            header.style.display = 'none';
         }
     });
     </script>
@@ -60,7 +58,7 @@ if st.session_state.word:
 
     with st.spinner("Processando sua consulta..."):
         response = get_model_response(st.session_state.word)
-        time.sleep(1) 
+        time.sleep(1)
     st.session_state.is_loading = False  
 
     st.write(f"{response}")
